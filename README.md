@@ -1,1 +1,2 @@
 # paperstrade
+# stocks

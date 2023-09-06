@@ -1,0 +1,7 @@
+flask
+pymongo[srv]
+gunicorn
+flask_session
+passlib
+uuid
+requests

@@ -1,5 +1,69 @@
 {% extends "layout.html" %}
 
+{% block head %}
+        <!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+    <div class="tradingview-widget-container__widget"></div>
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+    {
+    "symbols": [
+      {
+        "proName": "FOREXCOM:SPXUSD",
+        "title": "S&P 500"
+      },
+      {
+        "proName": "FOREXCOM:NSXUSD",
+        "title": "US 100"
+      },
+      {
+        "description": "NASDAQ",
+        "proName": "NASDAQ:NDX"
+      },
+      {
+        "description": "Apple",
+        "proName": "NASDAQ:AAPL"
+      },
+      {
+        "description": "Tesla",
+        "proName": "NASDAQ:TSLA"
+      },
+      {
+        "description": "Nvidia",
+        "proName": "NASDAQ:NVDA"
+      },
+      {
+        "description": "Amazon.com",
+        "proName": "NASDAQ:AMZN"
+      },
+      {
+        "description": "Meta",
+        "proName": "NASDAQ:META"
+      },
+      {
+        "description": "Netflix",
+        "proName": "NASDAQ:NFLX"
+      },
+      {
+        "description": "Alphabet.Inc",
+        "proName": "NASDAQ:GOOGL"
+      },
+      {
+        "description": "Microsoft",
+        "proName": "NASDAQ:MSFT"
+      }
+    ],
+    "showSymbolLogo": true,
+    "colorTheme": "light",
+    "isTransparent": false,
+    "displayMode": "adaptive",
+    "locale": "in"
+  }
+    </script>
+  </div>
+  <!-- TradingView Widget END -->
+
+{% endblock %}
+
 {% block title %}
     Log In
 {% endblock %}
