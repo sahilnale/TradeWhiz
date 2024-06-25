@@ -13,17 +13,16 @@ app.config["SECRET_KEY"] = "erewewewrwe"
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
-
 client = MongoClient("mongodb+srv://sahilnale:Logic!23@stocks.uelt6jz.mongodb.net/")
 app.db = client.stocktrader
 
 stock_key ='YTMVZXBN56T8IAM7'
 
-
 def stock_quote(ticker):
         url = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={}&apikey={}'.format(ticker, stock_key)
         response = requests.get(url)
         data = response.json()
+        print(data)
         price = data['Global Quote']['05. price']
         return price
 
@@ -42,7 +41,8 @@ def quote():
     if request.method == "POST":
         ticker = request.form.get('ticker')
         price = stock_quote(ticker)
-        return render_template("quote.html", ticker=ticker,price=price)
+        symbol = "NASDAQ:" + ticker
+        return render_template("quote.html", ticker=ticker,price=price, symbol=symbol)
     
     return render_template("quoted.html")
 
@@ -128,7 +128,6 @@ def sell():
         app.db.entries.update_one({"username":session['username']},{"$set": {"cash":user_data['cash']}})
         app.db.entries.update_one({"username":session['username']},{"$set": {"transactions":transactions}})
         
-
         return redirect("/")
     return render_template("sell.html")
 
@@ -215,12 +214,18 @@ def logout():
 def index():
     user_data = app.db.entries.find_one({"username":session["username"]})
     portfolio = user_data['portfolio']
+
+    for stock in portfolio:
+        stock['price'] = float(stock_quote(stock['ticker']))
+    app.db.entries.update_one({"username":session['username']},{"$set": {"portfolio":portfolio}})
     cash = user_data['cash']
     total_value = 0
     for stock in portfolio:
-        total_value += stock['price']*stock['number']
+        total_value += float(stock['price'])*float(stock['number'])
     total_value += cash
     return render_template("home.html",portfolio=portfolio,cash=cash, total_value=total_value)
+
+
 
 @app.route('/history',methods=["GET", "POST"])
 @login_required
@@ -244,3 +249,5 @@ class User:
     transactions:[]
 
 
+if __name__ == '__main__':
+    app.run()

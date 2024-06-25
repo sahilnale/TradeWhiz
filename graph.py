@@ -6,5 +6,6 @@ string_value = 'itslinuxfoss'
 index_position = 2
 new_value = 'h'
  
-string_value = end[:index_position] + new_value + end[index_position+1:]
+string_value = end[:index_position ] + new_value + end[index_position+1:]
 print(string_value)
+

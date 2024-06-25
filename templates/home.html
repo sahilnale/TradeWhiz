@@ -43,7 +43,7 @@
             <td>{{stock['ticker']}}</td>
             <td>{{stock['number']}}</td>
             <td>${{stock['price']}}</td>
-            <td>{{stock['price']*stock['number']}}</td>
+            <td>${{"%0.2f" | format(stock['price']*stock['number'] | float)}}</td>
         </tr>
         {% endfor %}
         <tr>
@@ -54,11 +54,8 @@
         </tr>
         <tr class="table-dark">
             <td colspan="3" align="left">Portfolio Value</td>
-            <td>${{total_value}}</td>
+            <td>${{"%0.2f" | format(total_value | float)}}</td>
         </tr>
     </tbody>
   </table>
-
-
-
 {% endblock %}
