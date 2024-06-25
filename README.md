@@ -1,2 +1,2 @@
-# paperstrade
-# stocks
+# TradeWhiz
+# 
